@@ -52,7 +52,7 @@ while getopts ":sgk" opt; do
 done
 
 # If no input arguments, show a simple menu.
-if [ $# -le 0 ]; then 
+if [ $# -le 0 ]; then
   selection=$(printf "start\nkill" | dmenu)
   [ $? -ne 0 ] && exit
   [ "$selection" = "start" ] && s=0 || k=0
@@ -70,11 +70,11 @@ if [ $s ]; then
 fi
 
 [ $k ] && rm $statusfile
-
 if [ $g ]; then
   [ "$(current)" = "null" ] && exit 1
   if [ $(remaining) -le 0 ]; then
-    notify-send "Timer $(current)" "done"
+    notify-send "Timer $(current)" "done" #test
+	 paplay "/home/sixten/projects/neopomodoro/bell-98033.mp3" > /tmp/play_output.log 2>&1 || echo "Sound playback failed"
     update $(next)
     pomodoro -g
   else
